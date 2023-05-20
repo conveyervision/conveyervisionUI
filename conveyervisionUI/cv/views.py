@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from .models import FoodItem
 
 def index(request):
@@ -9,15 +9,6 @@ def index(request):
     # Fetch the default item
     item = FoodItem.objects.get(id=0)
 
-    # Create a message displaying the item's details
-    item_message = (
-        f"ID: {item.id}, "
-        f"Active: {item.active}, "
-        f"Food: {item.food}, "
-        f"Location: {item.location}, "
-        f"Added: {item.added}, "
-        f"Location Update: {item.location_update}"
-    )
-
-    return HttpResponse(f"Hello, world! Here's your food item: {item_message}")
+    # Pass the food item to the template
+    return render(request, 'cv/index.html', {'fooditem': item})
 
