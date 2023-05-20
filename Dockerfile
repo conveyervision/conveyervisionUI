@@ -1,12 +1,8 @@
 # Pull the base image
 FROM python:3.8-slim-buster
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Install git and ssh
-RUN apt-get update && apt-get install -y git openssh-client
+# Install git, ssh, and postgres client
+RUN apt-get update && apt-get install -y git openssh-client libpq-dev gcc
 
 # Set work directory
 WORKDIR /code
@@ -25,6 +21,9 @@ RUN mkdir -p -m 0600 ~/.ssh && \
 
 # Clone the git repo
 RUN ssh-agent bash -c 'ssh-add /root/.ssh/id_rsa; git clone git@github.com:conveyervision/conveyervisionUI.git .'
+
+# Remove unnecessary packages
+RUN apt-get autoremove -y gcc
 
 # Command to run on container start
 CMD [ "python", "conveyervisionUI/manage.py", "runserver", "0.0.0.0:8000" ]
