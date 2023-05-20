@@ -7,4 +7,3 @@ class FoodItem(models.Model):
     location = models.IntegerField()
     added = models.DateTimeField(auto_now_add=True)
     location_update = models.DateTimeField(auto_now=True)
-
