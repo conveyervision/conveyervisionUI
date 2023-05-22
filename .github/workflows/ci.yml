@@ -26,4 +26,3 @@ jobs:
         context: .
         push: true
         tags: docker.gensosekai.com/cv:latest
-
