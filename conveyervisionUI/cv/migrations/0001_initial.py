@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='FoodItem',
+            name='CVSpots',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('active', models.BooleanField(default=True)),

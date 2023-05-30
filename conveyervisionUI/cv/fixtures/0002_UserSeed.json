@@ -3,7 +3,7 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "yum",
+        "password": "pbkdf2_sha256$600000$f9TOYQLNcy1cmW1JxbwxDI$aKAuQGbX089n8PpmaalA7hBHVQyVIHzQtOByYVkepYE=",
         "last_login": null,
         "is_superuser": true,
         "username": "yum",

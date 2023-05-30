@@ -7,7 +7,7 @@
 				<h1><a href="/">bytevision <span>MVP</span></a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="/">Home</a></li>
+						<li><a href="/config">Configuration</a></li>
 						<li><a href="/dashboard">Dashboard</a></li>
 						<li><a href="/logout" class="button">Log out</a></li>
 					</ul>
@@ -26,14 +26,14 @@
 						<div class="content">
 							<p>Most recently added food item:</p>
 							<ul>
-								<li>ID: {{ fooditem.id }}</li>
-							        <li>Active: {{ fooditem.active }}</li>
-							        <li>Food: {{ fooditem.food }}</li>
-							        <li>Location: {{ fooditem.location }}</li>
-							        <li>Added: {{ fooditem.added }}</li>
-								<li>Location Update: {{ fooditem.location_update }}</li>
+								<li>ID: {{ cvspots.id }}</li>
+							        <li>Active: {{ cvspots.active }}</li>
+							        <li>Food: {{ cvspots.food }}</li>
+							        <li>Location: {{ cvspots.location }}</li>
+							        <li>Added: {{ cvspots.added }}</li>
+								<li>Location Update: {{ cvspots.location_update }}</li>
 							</ul>
-							<a href="/admin" class="image fit"><img src="{% static 'images/cv-unsplash.jpg' %}" alt="" /></a>
+							<a href="/admin" class="image fit"><img src="{% static 'images/pexels-ivan-samkov-02.jpg' %}" alt="" /></a>
 						</div>
 
 				</div>

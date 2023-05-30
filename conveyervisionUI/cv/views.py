@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import FoodItem
+from .models import CVSpots
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
@@ -13,9 +13,9 @@ def login(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
-    item = FoodItem.objects.first()  # gets the first FoodItem
+    item = CVSpots.objects.first()  # gets the item in the first spot
     context = {
-        'fooditem': item,
+        'cvspots': item,
     }
     return render(request, 'cv/dashboard.html', context)
 
