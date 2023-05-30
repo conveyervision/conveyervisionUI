@@ -1,0 +1,41 @@
+{% extends "cv/master.html" %}
+{% load static %}
+{% block title %} - Dashboard{% endblock %}
+{% block content %}
+		<!-- Header -->
+			<header id="header">
+				<h1><a href="/">bytevision <span>MVP</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/dashboard">Dashboard</a></li>
+						<li><a href="/logout" class="button">Log out</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+
+					<header class="major">
+						<h2>bytevision dashboard</h2>
+					</header>
+
+					<!-- Content -->
+						<div class="content">
+							<p>Most recently added food item:</p>
+							<ul>
+								<li>ID: {{ fooditem.id }}</li>
+							        <li>Active: {{ fooditem.active }}</li>
+							        <li>Food: {{ fooditem.food }}</li>
+							        <li>Location: {{ fooditem.location }}</li>
+							        <li>Added: {{ fooditem.added }}</li>
+								<li>Location Update: {{ fooditem.location_update }}</li>
+							</ul>
+							<a href="/admin" class="image fit"><img src="{% static 'images/cv-unsplash.jpg' %}" alt="" /></a>
+						</div>
+
+				</div>
+			</section>
+{% endblock %}

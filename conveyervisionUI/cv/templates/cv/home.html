@@ -1,44 +1,14 @@
-<!DOCTYPE HTML>
-<!--
-	Slate by Pixelarity
-	pixelarity.com | hello@pixelarity.com
-	License: pixelarity.com/license
--->
+{% extends "cv/master.html" %}
 {% load static %}
-<html>
-	<head>
-		<title>bytevision</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
-	</head>
-	<body>
-
+{% block title %} - Home{% endblock %}
+{% block content %}
 		<!-- Header -->
 			<header id="header">
 				<h1><a href="/">bytevision <span>MVP</span></a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li>
-							<a href="#" class="submenu fa-angle-down">Page Layouts</a>
-							<ul>
-								<li><a href="#">Left Sidebar</a></li>
-								<li><a href="#">Right Sidebar</a></li>
-								<li><a href="#">No Sidebar</a></li>
-								<li>
-									<a href="#">Submenu</a>
-									<ul>
-										<li><a href="#">Option One</a></li>
-										<li><a href="#">Option Two</a></li>
-										<li><a href="#">Option Three</a></li>
-										<li><a href="#">Option Four</a></li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-						<li><a href="#" class="button">Log In</a></li>
+						<li><a href="/">Home</a></li>
+						<li><a href="/login" class="button">Log In</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -54,109 +24,10 @@
 
 					<!-- Content -->
 						<div class="content">
-							<p>Food item:</p>
-							<ul>
-								<li>ID: {{ fooditem.id }}</li>
-							        <li>Active: {{ fooditem.active }}</li>
-							        <li>Food: {{ fooditem.food }}</li>
-							        <li>Location: {{ fooditem.location }}</li>
-							        <li>Added: {{ fooditem.added }}</li>
-								<li>Location Update: {{ fooditem.location_update }}</li>
-							</ul>
-							<a href="/admin" class="image fit"><img src="{% static 'images/cv-unsplash.jpg' %}" alt="" /></a>
+							<p>To use the system, <a href="/login">login</a> (default credentials are <b>yum</b>/<b>yum</b>).</p>
+							<a href="/login" class="image fit"><img src="{% static 'images/cv-unsplash.jpg' %}" alt="Login" /></a>
 						</div>
 
 				</div>
 			</section>
-
-		<!-- Contact -->
-			<section id="contact" class="wrapper split">
-				<div class="inner">
-					<section>
-						<h2>Send us a message</h2>
-						<form method="post" action="#">
-							<div class="row uniform">
-								<div class="6u 12u$(large) 6u(medium) 12u$(xsmall)">
-									<label for="name">Name</label>
-									<input type="text" name="name" id="name" />
-								</div>
-								<div class="6u$ 12u$(large) 6u$(medium) 12u$(xsmall)">
-									<label for="email">Email</label>
-									<input type="email" name="email" id="email" />
-								</div>
-								<div class="12u$">
-									<label for="message">Message</label>
-									<textarea name="message" id="message" rows="5"></textarea>
-								</div>
-								<div class="12u$">
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="special" /></li>
-										<li><input type="reset" value="Reset" /></li>
-									</ul>
-								</div>
-							</div>
-						</form>
-					</section>
-					<section>
-						<h2>Other ways to reach us</h2>
-						<ul class="bulleted-icons">
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-envelope"></span></span>
-								<h3>Email</h3>
-								<p><a href="#">information@untitled.tld</a></p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-twitter"></span></span>
-								<h3>Twitter</h3>
-								<p><a href="#">twitter.com/untitled-tld</a></p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-phone"></span></span>
-								<h3>Phone</h3>
-								<p>(800) 555-0000</p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-facebook"></span></span>
-								<h3>Facebook</h3>
-								<p><a href="#">facebook.com/untitled-tld</a></p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-home"></span></span>
-								<h3>Mailing Address</h3>
-								<p>1234 Fictional Avenue<br />
-								Nashville, TN 00000<br />
-								United States
-								</p>
-							</li>
-							<li>
-								<span class="icon-wrapper"><span class="icon fa-linkedin"></span></span>
-								<h3>LinkedIn</h3>
-								<p><a href="#">linkedin.com/untitled-tld</a></p>
-							</li>
-						</ul>
-					</section>
-				</div>
-			</section>
-
-		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<p class="copyright">&copy; Untitled Corp. All rights reserved. Lorem ipsum dolor sit amet feugiat tempus aliquam.</p>
-					<ul class="menu">
-						<li><a href="#">Terms<span> of Use</span></a></li>
-						<li><a href="#">Privacy<span> Policy</span></a></li>
-						<li><a href="#">Legal<span> Information</span></a></li>
-					</ul>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
-			<script src="{% static 'assets/js/skel.min.js' %}"></script>
-			<script src="{% static 'assets/js/util.js' %}"></script>
-			<script src="{% static 'assets/js/main.js' %}"></script>
-
-	</body>
-</html>
+{% endblock %}
