@@ -1,0 +1,10 @@
+[
+{
+    "model": "cv.cvconfig",
+    "pk": 1,
+    "fields": {
+        "completed": false,
+        "num_spots": 0
+    }
+}
+]
