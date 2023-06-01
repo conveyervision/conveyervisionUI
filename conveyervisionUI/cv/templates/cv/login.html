@@ -1,0 +1,42 @@
+{% extends "cv/master.html" %}
+{% load static %}
+{% block title %} - Login{% endblock %}
+{% block content %}
+		<!-- Header -->
+			<header id="header">
+				<h1><a href="/">bytevision <span>MVP</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="/">Home</a></li>
+						<li><a href="/login" class="button">Log In</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+
+					<header class="major">
+						<h2>Login</h2>
+					</header>
+
+						<form method="post" action="/auth/">
+							<div class="6u 12u$(large) 6u(medium) 12u$(xsmall)">
+								<label for="username">Username</label>
+								<input type="text" name="username" id="username" />
+							</div><br>
+							<div class="6u$ 12u$(large) 6u$(medium) 12u$(xsmall)">
+								<label for="password">Password</label>
+								<input type="password" name="password" id="password" />
+							</div><br>
+							{% csrf_token %}
+							<div class="12u$">
+								<ul class="actions">
+									<li><input type="submit" value="Login" class="special" /></li>
+								</ul>
+							</div>
+						</form>
+				</div>
+			</section>
+{% endblock %}

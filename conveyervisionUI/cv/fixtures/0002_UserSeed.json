@@ -1,0 +1,20 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$f9TOYQLNcy1cmW1JxbwxDI$aKAuQGbX089n8PpmaalA7hBHVQyVIHzQtOByYVkepYE=",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "yum",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-05-30T02:00:09.463Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

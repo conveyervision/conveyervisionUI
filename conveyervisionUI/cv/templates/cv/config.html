@@ -1,14 +1,15 @@
 {% extends "cv/master.html" %}
 {% load static %}
-{% block title %} - Home{% endblock %}
+{% block title %} - Configuration{% endblock %}
 {% block content %}
 		<!-- Header -->
 			<header id="header">
 				<h1><a href="/">bytevision <span>MVP</span></a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/login" class="button">Log In</a></li>
+						<li><a href="/config">Configuration</a></li>
+						<li><a href="/dashboard">Dashboard</a></li>
+						<li><a href="/logout" class="button">Log out</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -18,14 +19,15 @@
 				<div class="inner">
 
 					<header class="major">
-						<h2>bytevision</h2>
-						<p>Welcome to the MVP</p>
+						<h2>bytevision configuration</h2>
 					</header>
 
 					<!-- Content -->
 						<div class="content">
-							<p>To use the system, <a href="/login">login</a> (default credentials are <b>yum</b>/<b>yum</b>).</p>
-							<a href="/login" class="image fit"><img src="{% static 'images/pexels-ivan-samkov-01.jpg' %}" alt="Login" /></a>
+							<form method="post" action="/config/">
+								{% csrf_token %}
+								{{ form }}
+								<br><br><input type="submit" value="Submit">
 						</div>
 
 				</div>
