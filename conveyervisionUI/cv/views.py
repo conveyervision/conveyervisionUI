@@ -15,9 +15,14 @@ def login(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
+    completed = CVConfig.objects.first() # gets the first config
+    config_msg = ''
+    if not completed.completed == True:
+        config_msg = '<a href="/config/" class="button special big">YOU NEED TO CONFIGURE YOUR SYSTEM! PLEASE CLICK HERE!</a>'
     item = CVSpots.objects.first()  # gets the item in the first spot
     context = {
         'CVSpots': item,
+        'config_msg': config_msg,
     }
     return render(request, 'cv/dashboard.html', context)
 
@@ -47,6 +52,9 @@ def config(request):
             num_spots = form.cleaned_data['num_spots']
             this_config = CVConfig.objects.all()[0]
             this_config.num_spots = num_spots
+            this_config.completed = True
             this_config.save()
             return HttpResponseRedirect("/dashboard/")
-    return render(request, 'cv/config.html', {'form': Config()})
+    else:
+        existing_config = CVConfig.objects.first() # gets the first config
+        return render(request, 'cv/config.html', {'form': Config(),'num_spots': existing_config.num_spots})
