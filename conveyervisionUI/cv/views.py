@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from cv.models import CVSpots
+from cv.models import CVSpots, CVConfig
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from cv.forms import Config
+from django.http import HttpResponseRedirect
 
 def home(request):
     return render(request, 'cv/home.html')
@@ -35,3 +37,16 @@ def auth(request):
     else:
                 # Return an 'invalid login' error message.
                 return redirect(login)
+
+@login_required(login_url="/login/")
+def config(request):
+    if request.method == "POST":
+        form = Config(request.POST)
+        if form.is_valid():
+            # PROCESS FORM DATA HERE
+            num_spots = form.cleaned_data['num_spots']
+            this_config = CVConfig.objects.all()[0]
+            this_config.num_spots = num_spots
+            this_config.save()
+            return HttpResponseRedirect("/dashboard/")
+    return render(request, 'cv/config.html', {'form': Config()})

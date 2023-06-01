@@ -1,0 +1,35 @@
+{% extends "cv/master.html" %}
+{% load static %}
+{% block title %} - Configuration{% endblock %}
+{% block content %}
+		<!-- Header -->
+			<header id="header">
+				<h1><a href="/">bytevision <span>MVP</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="/config">Configuration</a></li>
+						<li><a href="/dashboard">Dashboard</a></li>
+						<li><a href="/logout" class="button">Log out</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+
+					<header class="major">
+						<h2>bytevision configuration</h2>
+					</header>
+
+					<!-- Content -->
+						<div class="content">
+							<form method="post" action="/config/">
+								{% csrf_token %}
+								{{ form }}
+								<br><br><input type="submit" value="Submit">
+						</div>
+
+				</div>
+			</section>
+{% endblock %}
