@@ -69,5 +69,5 @@ def config(request):
             logger.info('['+str(datetime.datetime.now())+' UTC] Application configuration updated successfully.')
             return HttpResponseRedirect("/dashboard/")
     else:
-        existing_config = CVConfig.objects.first() # gets the first config
+        existing_config = CVConfig.objects.latest('id') # gets the latest config
         return render(request, 'cv/config.html', {'form': Config(),'num_spots': existing_config.num_spots})
