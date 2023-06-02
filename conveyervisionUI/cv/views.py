@@ -58,8 +58,16 @@ def config(request):
             this_config.num_spots = num_spots
             this_config.completed = True
             this_config.save()
+            CVSpots.objects.all().delete()
+            i = 0
+            this_CVSpots = []
+            while i < num_spots:
+                this_CVSpots.append(CVSpots(location=i))
+                i += 1
+            for x in this_CVSpots:
+                x.save()
             logger.info('['+str(datetime.datetime.now())+' UTC] Application configuration updated successfully.')
             return HttpResponseRedirect("/dashboard/")
     else:
-        existing_config = CVConfig.objects.first() # gets the first config
+        existing_config = CVConfig.objects.latest('id') # gets the latest config
         return render(request, 'cv/config.html', {'form': Config(),'num_spots': existing_config.num_spots})
