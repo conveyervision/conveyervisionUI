@@ -26,5 +26,5 @@ RUN ssh-agent bash -c 'ssh-add /root/.ssh/id_rsa; git clone git@github.com:conve
 RUN apt-get autoremove -y gcc
 
 # Command to run on container start
-CMD bash -c "python conveyervisionUI/manage.py migrate && python conveyervisionUI/manage.py runserver 0.0.0.0:8000"
+CMD bash -c "python conveyervisionUI/manage.py makemigrations && python conveyervisionUI/manage.py migrate && python conveyervisionUI/manage.py runserver 0.0.0.0:8000"
 
