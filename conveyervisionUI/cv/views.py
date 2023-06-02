@@ -6,6 +6,9 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from cv.forms import Config
 from django.http import HttpResponseRedirect
+import datetime
+import logging
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render(request, 'cv/home.html')
@@ -36,12 +39,13 @@ def auth(request):
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
     if user is not None:
-                auth_login(request, user)
+        auth_login(request, user)
+        logger.info('['+str(datetime.datetime.now())+' UTC] User "'+username+'" logged in successfully.')
         # Redirect to a success page.
-                return redirect(dashboard)
+        return redirect(dashboard)
     else:
-                # Return an 'invalid login' error message.
-                return redirect(login)
+        # Return an 'invalid login' error message.
+        return redirect(login)
 
 @login_required(login_url="/login/")
 def config(request):
@@ -54,6 +58,7 @@ def config(request):
             this_config.num_spots = num_spots
             this_config.completed = True
             this_config.save()
+            logger.info('['+str(datetime.datetime.now())+' UTC] Application configuration updated successfully.')
             return HttpResponseRedirect("/dashboard/")
     else:
         existing_config = CVConfig.objects.first() # gets the first config
