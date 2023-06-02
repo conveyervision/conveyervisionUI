@@ -8,8 +8,6 @@ from cv.forms import Config
 from django.http import HttpResponseRedirect
 import datetime
 import logging
-#from pytz import timezone
-#tz = timezone('EST')
 logger = logging.getLogger(__name__)
 
 def home(request):
