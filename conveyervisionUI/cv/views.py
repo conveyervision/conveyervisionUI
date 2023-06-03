@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from cv.models import CVSpots, CVConfig
+from cv.models import CVSpots, CVConfig, FoodItem
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
