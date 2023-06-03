@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         registry = 'docker.gensosekai.com'
-        registryCredential = 'dockerHubCredentialID'
+        registryCredential = 'dockerHubCredentialID' // This is the ID of the credentials you set up in Jenkins
         imageName = 'cv'
         tag = 'latest'
     }
@@ -12,19 +12,13 @@ pipeline {
                 checkout scm // This checks out the code from your repository
             }
         }
-        stage('Setup buildx') {
-            steps {
-                script {
-                    sh 'docker buildx create --use'
-                }
-            }
-        }
         stage('Build and push Docker image') {
             steps {
                 script {
-                    sh """
-                    docker buildx build --platform linux/amd64,linux/arm64 -t ${registry}/${imageName}:${tag} --push .
-                    """
+                    def dockerImage = docker.build("${registry}/${imageName}:${tag}")
+                    docker.withRegistry('https://${registry}', "${registryCredential}") {
+                        dockerImage.push("${tag}")
+                    }
                 }
             }
         }
