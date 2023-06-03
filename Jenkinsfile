@@ -4,7 +4,7 @@ pipeline {
         registry = 'docker.gensosekai.com'
         registryCredential = 'dockerHubCredentialID' // This is the ID of the credentials you set up in Jenkins
         imageName = 'cv'
-        tag = 'latest'
+        tag = 'jenkins-latest'
     }
     stages {
         stage('Checkout') {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     def dockerImage = docker.build("${registry}/${imageName}:${tag}")
-                    docker.withRegistry('https://${registry}', "${registryCredential}") {
+                    docker.withRegistry("https://${registry}", "${registryCredential}") {
                         dockerImage.push("${tag}")
                     }
                 }
