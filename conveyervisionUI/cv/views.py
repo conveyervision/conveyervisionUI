@@ -8,6 +8,9 @@ from cv.forms import Config
 from django.http import HttpResponseRedirect
 import datetime
 import logging
+from rest_framework import viewsets
+from .serializers import CVSpotsSerializer, CVConfigSerializer, FoodItemSerializer
+
 logger = logging.getLogger(__name__)
 
 def home(request):
@@ -71,3 +74,15 @@ def config(request):
     else:
         existing_config = CVConfig.objects.latest('id') # gets the latest config
         return render(request, 'cv/config.html', {'form': Config(),'num_spots': existing_config.num_spots})
+
+class CVSpotsViewSet(viewsets.ModelViewSet):
+    queryset = CVSpots.objects.all()
+    serializer_class = CVSpotsSerializer
+
+class CVConfigViewSet(viewsets.ModelViewSet):
+    queryset = CVConfig.objects.all()
+    serializer_class = CVConfigSerializer
+
+class FoodItemViewSet(viewsets.ModelViewSet):
+    queryset = FoodItem.objects.all()
+    serializer_class = FoodItemSerializer
