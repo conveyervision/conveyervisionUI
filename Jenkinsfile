@@ -4,7 +4,7 @@ pipeline {
         registry = 'docker.gensosekai.com'
         registryCredential = 'dockerHubCredentialID' // This is the ID of the credentials you set up in Jenkins
         imageName = 'cv'
-        tag = 'jenkins-latest'
+        tag = 'jenkins'
     }
     stages {
         stage('Checkout') {
