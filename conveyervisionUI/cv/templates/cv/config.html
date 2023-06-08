@@ -24,6 +24,7 @@
 
 					<!-- Content -->
 						<div class="content">
+							<p><b>NOTE:</b> Setting this value dumps the existing data and creates new (empty) data rows. In other words, the system can essentially be reset using this (even if the number of spots does not change).</p>
 							<form method="post" action="/config/">
 								{% csrf_token %}
 								{{ form }}

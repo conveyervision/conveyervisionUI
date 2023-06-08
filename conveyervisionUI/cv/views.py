@@ -8,8 +8,12 @@ from cv.forms import Config
 from django.http import HttpResponseRedirect
 import datetime
 import logging
-from rest_framework import viewsets
+#from rest_framework import viewsets
+from rest_framework import generics
 from .serializers import CVSpotsSerializer, CVConfigSerializer, FoodItemSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -75,14 +79,42 @@ def config(request):
         existing_config = CVConfig.objects.latest('id') # gets the latest config
         return render(request, 'cv/config.html', {'form': Config(),'num_spots': existing_config.num_spots})
 
-class CVSpotsViewSet(viewsets.ModelViewSet):
+#class CVSpotsViewSet(viewsets.ModelViewSet):
+#    queryset = CVSpots.objects.all()
+#    serializer_class = CVSpotsSerializer
+#
+#class CVConfigViewSet(viewsets.ModelViewSet):
+#    queryset = CVConfig.objects.all()
+#    serializer_class = CVConfigSerializer
+#
+#class FoodItemViewSet(viewsets.ModelViewSet):
+#    queryset = FoodItem.objects.all()
+#    serializer_class = FoodItemSerializer
+
+class CvSpotsList(generics.ListCreateAPIView):
     queryset = CVSpots.objects.all()
     serializer_class = CVSpotsSerializer
 
-class CVConfigViewSet(viewsets.ModelViewSet):
-    queryset = CVConfig.objects.all()
-    serializer_class = CVConfigSerializer
-
-class FoodItemViewSet(viewsets.ModelViewSet):
-    queryset = FoodItem.objects.all()
-    serializer_class = FoodItemSerializer
+# Example curl command to test POST endpoints (fill in the appropriate IP address for your environment):
+# curl -H "Content-Type: application/json" -d "{\"action\": \"deactivate\"}" http://ip_address:8000/api/cvspots/15/
+@api_view(['GET', 'POST'])
+def CvSpotsDetail(request, pk):
+    this_cvspot = CVSpots.objects.get(pk=pk)
+    if request.method == 'POST':
+        json_data = json.loads(request.body.decode('utf-8'))
+        action = json_data['action']
+        if action == "activate":
+            this_cvspot.active = True
+            this_cvspot.save()
+            logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' activated successfully.')
+            return Response({"message": "API request received - activate cvspots "+str(this_cvspot.id)+"."})
+        elif action == "deactivate":
+            this_cvspot.active = False
+            this_cvspot.save()
+            logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' deactivated successfully.')
+            return Response({"message": "API request received - deactivate cvspots "+str(this_cvspot.id)+"."})
+        else:
+            logger.info('['+str(datetime.datetime.now())+' UTC] API error - Unexpected POST data.')
+            return Response({"message": "API error - Unexpected POST data."})
+    else:
+        return Response({"message": "Did you forget POSTage?"})
