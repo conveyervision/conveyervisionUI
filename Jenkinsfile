@@ -16,10 +16,7 @@ pipeline {
         stage('Build and push Docker image') {
             steps {
                 script {
-                    def dockerImage = docker.build("${registry}/${imageName}:${tag}", ".")
-                    docker.withRegistry("https://${registry}", "${registryCredential}") {
-                        dockerImage.push("${tag}")
-                    }
+                    sh "docker buildx build --push --tag ${registry}/${imageName}:${tag} ."
                 }
             }
         }
