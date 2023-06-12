@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent GensosekaiAgent
     environment {
         registry = 'docker.gensosekai.com'
         registryCredential = 'dockerHubCredentialID' // This is the ID of the credentials you set up in Jenkins
