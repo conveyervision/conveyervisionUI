@@ -16,7 +16,7 @@ pipeline {
         stage('Build and push Docker image') {
             steps {
                 script {
-                    def dockerImage = docker.build("${registry}/${imageName}:${tag}")
+                    def dockerImage = docker.build("${registry}/${imageName}:${tag}", ".")
                     docker.withRegistry("https://${registry}", "${registryCredential}") {
                         dockerImage.push("${tag}")
                     }
