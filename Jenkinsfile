@@ -25,7 +25,7 @@ pipeline {
                 // Clone the cv-dockercompose repository
                 git branch: 'main', 
                     credentialsId: 'cv-jks-deploy', // You'll need to set up Git credentials in Jenkins
-                    url: 'https://github.com/conveyervision/cv-dockercompose.git'
+                    url: 'git@github.com:conveyervision/cv-dockercompose.git'
                 
                 // Move the cloned repository to the desired directory
                 sh "mv cv-dockercompose/* ${deploymentDir}"
