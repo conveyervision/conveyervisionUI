@@ -4,7 +4,7 @@ pipeline {
         registry = 'docker.gensosekai.com'
         registryCredential = 'dockerHubCredentialID' // This is the ID of the credentials you set up in Jenkins
         imageName = 'cv'
-        tag = 'jenkins'
+        tag = 'jks'
         deploymentDir = '/home/saad/git/bytevision/cv-deploymain'
     }
     stages {
