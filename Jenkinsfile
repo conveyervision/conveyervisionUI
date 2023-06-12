@@ -28,7 +28,7 @@ pipeline {
                     url: 'git@github.com:conveyervision/cv-dockercompose.git'
                 
                 // Move the cloned repository to the desired directory
-                sh "mv cv-dockercompose/* ${deploymentDir}"
+                sh "mv cv/* ${deploymentDir}"
                 
                 // Run Docker Compose
                 dir("${deploymentDir}") {
