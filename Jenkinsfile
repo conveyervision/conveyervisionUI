@@ -15,14 +15,14 @@ pipeline {
         stage('Setup Docker Buildx') {
             steps {
                 script {
-                    sh 'docker buildx create --use'
+                    sh 'docker buildx create --name mybuilder --use'
                 }
             }
         }
         stage('Build Docker Image - AMD64') {
             steps {
                 script {
-                    sh "docker buildx build --platform linux/amd64 --tag ${registry}/${imageName}-amd64:${tag} . --load --rm"
+                    sh "docker buildx build --platform linux/amd64 --tag ${registry}/${imageName}-amd64:${tag} . --load"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Build Docker Image - ARM64') {
             steps {
                 script {
-                    sh "docker buildx build --platform linux/arm64 --tag ${registry}/${imageName}-arm64:${tag} . --load --rm"
+                    sh "docker buildx build --platform linux/arm64 --tag ${registry}/${imageName}-arm64:${tag} . --load"
                 }
             }
         }
@@ -44,6 +44,13 @@ pipeline {
             steps {
                 script {
                     sh "docker push ${registry}/${imageName}-arm64:${tag}"
+                }
+            }
+        }
+        stage('Remove Docker Buildx Instance') {
+            steps {
+                script {
+                    sh 'docker buildx rm mybuilder'
                 }
             }
         }
