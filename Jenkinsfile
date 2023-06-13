@@ -22,14 +22,28 @@ pipeline {
         stage('Build Docker Image - AMD64') {
             steps {
                 script {
-                    sh "docker buildx build --push --platform linux/amd64 --tag ${registry}/${imageName}-amd64:${tag} ."
+                    sh "docker buildx build --platform linux/amd64 --tag ${registry}/${imageName}-amd64:${tag} . --load"
+                }
+            }
+        }
+        stage('Push Docker Image - AMD64') {
+            steps {
+                script {
+                    sh "docker push ${registry}/${imageName}-amd64:${tag}"
                 }
             }
         }
         stage('Build Docker Image - ARM64') {
             steps {
                 script {
-                    sh "docker buildx build --push --platform linux/arm64 --tag ${registry}/${imageName}-arm64:${tag} ."
+                    sh "docker buildx build --platform linux/arm64 --tag ${registry}/${imageName}-arm64:${tag} . --load"
+                }
+            }
+        }
+        stage('Push Docker Image - ARM64') {
+            steps {
+                script {
+                    sh "docker push ${registry}/${imageName}-arm64:${tag}"
                 }
             }
         }
