@@ -18,7 +18,13 @@ import json
 logger = logging.getLogger(__name__)
 
 def home(request):
-    return render(request, 'cv/home.html')
+    completed_check = CVConfig.objects.first() # gets the first config
+    home_display_msg = 'This system has not yet been configured. It needs to be configured for use.'
+    if completed_check.completed == True:
+        spot_count = CVSpots.objects.count()
+        home_display_msg = 'This system has been configured with ' + str(spot_count) + ' conveyer spots.'
+    context = { 'home_display_msg': home_display_msg, }
+    return render(request, 'cv/home.html', context)
 
 def login(request):
     return render(request, 'cv/login.html')
@@ -72,6 +78,7 @@ def config(request):
                 this_CVSpots.append(CVSpots(location=i))
                 i += 1
             for x in this_CVSpots:
+                x.active = False # Default cvspots.active to False for new (or reset) configurations
                 x.save()
             logger.info('['+str(datetime.datetime.now())+' UTC] Application configuration updated successfully.')
             return HttpResponseRedirect("/dashboard/")
