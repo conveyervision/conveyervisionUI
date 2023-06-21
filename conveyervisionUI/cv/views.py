@@ -129,6 +129,7 @@ def CvSpotsDetail(request, pk):
                 return Response({"message": "API request received - update cvspots "+str(this_cvspot.id)+" food value \""+json_data['value']+"\"."})
             elif json_data['type'] == 'location':
                 this_cvspot.location = json_data['value'] # Expected JSON payload: {"action": "update", "type": "location", "value":"8"}
+                this_cvspot.location_update = datetime.datetime.now()
                 this_cvspot.save()
                 logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' location value updated to be \''+json_data['value']+'\'.')
                 return Response({"message": "API request received - update cvspots "+str(this_cvspot.id)+" location value \""+str(json_data['value'])+"\"."})
