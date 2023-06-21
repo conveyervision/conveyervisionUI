@@ -112,6 +112,7 @@ def CvSpotsDetail(request, pk):
         action = json_data['action']
         if action == "activate": # Expected JSON payload: {"action": "activate"}
             this_cvspot.active = True
+            this_cvspot.added = datetime.datetime.now()
             this_cvspot.save()
             logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' activated.')
             return Response({"message": "API request received - activate cvspots "+str(this_cvspot.id)+"."})
