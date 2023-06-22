@@ -18,7 +18,7 @@ class CVSpots(models.Model):
     active = models.BooleanField(default=True)
     food = models.CharField(max_length=200)
     location = models.IntegerField()
-    added = models.DateTimeField()
-    location_update = models.DateTimeField()
+    added = models.DateTimeField(null=True)
+    location_update = models.DateTimeField(null=True)
     class Meta:
         verbose_name_plural = 'CVSpots'

@@ -35,9 +35,17 @@ def dashboard(request):
     config_msg = ''
     if not completed.completed == True:
         config_msg = '<a href="/config/" class="button special big">YOU NEED TO CONFIGURE YOUR SYSTEM! PLEASE CLICK HERE!</a>'
-    item = CVSpots.objects.first()  # gets the item in the first spot
+    #item = CVSpots.objects.first()  # gets the item in the first spot
+ 
+    #item = CVSpots.objects.all()  # gets all configured cv spots
+    item = CVSpots.objects.all().order_by('id')  # gets all configured cv spots
+    if item[1].added is not None:
+        added_delta = item[1].added - item[0].added
+    else:
+        added_delta = 0
     context = {
-        'CVSpots': item,
+#        'CVSpots': item,
+        'added_delta': added_delta,
         'config_msg': config_msg,
     }
     return render(request, 'cv/dashboard.html', context)
