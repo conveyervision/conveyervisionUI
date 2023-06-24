@@ -25,15 +25,15 @@
 					<!-- Content -->
 						<div class="content">
 							{{ config_msg | safe }}
-							<p>Most recently added food item:</p>
-							<ul>
+							<p>Current <i><b>added</b></i> delta: {{ added_delta | safe }}</p>
+							<!-- <ul>
 								<li>ID: {{ cvspots.id }}</li>
 							        <li>Active: {{ cvspots.active }}</li>
 							        <li>Food: {{ cvspots.food }}</li>
 							        <li>Location: {{ cvspots.location }}</li>
 							        <li>Added: {{ cvspots.added }}</li>
 								<li>Location Update: {{ cvspots.location_update }}</li>
-							</ul>
+							</ul> -->
 							<a href="/admin" class="image fit"><img src="{% static 'images/pexels-ivan-samkov-02.jpg' %}" alt="" /></a>
 						</div>
 

@@ -4,7 +4,7 @@
 {% block content %}
 		<!-- Header -->
 			<header id="header">
-				<h1><a href="/">bytevision <span>MVP</span></a></h1>
+				<h1><a href="/">bytevision <sup>MVP</sup></a></h1>
 				<nav id="nav">
 					<ul>
 						<li><a href="/">Home</a></li>
@@ -18,13 +18,13 @@
 				<div class="inner">
 
 					<header class="major">
-						<h2>bytevision</h2>
-						<p>Welcome to the MVP</p>
+						<h2>bytevision <sup><i>MVP</i></sup></h2>
 					</header>
 
 					<!-- Content -->
 						<div class="content">
-							<p>To use the system, <a href="/login">login</a> (default credentials are <b>yum</b>/<b>yum</b>).</p>
+							<p><b>{{ home_display_msg | safe }}</b></p>
+							<h3>To use the system, <u><a href="/login">login</a></u> (default credentials are <b>yum</b>/<b>yum</b>).</h3>
 							<a href="/login" class="image fit"><img src="{% static 'images/pexels-ivan-samkov-01.jpg' %}" alt="Login" /></a>
 						</div>
 

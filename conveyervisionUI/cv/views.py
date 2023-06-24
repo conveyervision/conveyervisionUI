@@ -18,7 +18,13 @@ import json
 logger = logging.getLogger(__name__)
 
 def home(request):
-    return render(request, 'cv/home.html')
+    completed_check = CVConfig.objects.first() # gets the first config
+    home_display_msg = 'This system has not yet been configured. It needs to be configured for use.'
+    if completed_check.completed == True:
+        spot_count = CVSpots.objects.count()
+        home_display_msg = 'This system has been configured with ' + str(spot_count) + ' conveyer spots.'
+    context = { 'home_display_msg': home_display_msg, }
+    return render(request, 'cv/home.html', context)
 
 def login(request):
     return render(request, 'cv/login.html')
@@ -29,9 +35,16 @@ def dashboard(request):
     config_msg = ''
     if not completed.completed == True:
         config_msg = '<a href="/config/" class="button special big">YOU NEED TO CONFIGURE YOUR SYSTEM! PLEASE CLICK HERE!</a>'
-    item = CVSpots.objects.first()  # gets the item in the first spot
+    item = CVSpots.objects.exclude(added__isnull=True).order_by('-added')  # Grabbing most recently added CVSpots objects
+    if not item: # Handles if system is not yet configured
+        added_delta = 0
+    elif item[1].active == True:
+        added_delta = item[0].added - item[1].added
+    else:
+        added_delta = 0
     context = {
-        'CVSpots': item,
+#        'CVSpots': item,
+        'added_delta': added_delta,
         'config_msg': config_msg,
     }
     return render(request, 'cv/dashboard.html', context)
@@ -72,6 +85,7 @@ def config(request):
                 this_CVSpots.append(CVSpots(location=i))
                 i += 1
             for x in this_CVSpots:
+                x.active = False # Default cvspots.active to False for new (or reset) configurations
                 x.save()
             logger.info('['+str(datetime.datetime.now())+' UTC] Application configuration updated successfully.')
             return HttpResponseRedirect("/dashboard/")
@@ -105,6 +119,7 @@ def CvSpotsDetail(request, pk):
         action = json_data['action']
         if action == "activate": # Expected JSON payload: {"action": "activate"}
             this_cvspot.active = True
+            this_cvspot.added = datetime.datetime.now()
             this_cvspot.save()
             logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' activated.')
             return Response({"message": "API request received - activate cvspots "+str(this_cvspot.id)+"."})
@@ -121,6 +136,7 @@ def CvSpotsDetail(request, pk):
                 return Response({"message": "API request received - update cvspots "+str(this_cvspot.id)+" food value \""+json_data['value']+"\"."})
             elif json_data['type'] == 'location':
                 this_cvspot.location = json_data['value'] # Expected JSON payload: {"action": "update", "type": "location", "value":"8"}
+                this_cvspot.location_update = datetime.datetime.now()
                 this_cvspot.save()
                 logger.info('['+str(datetime.datetime.now())+' UTC] Conveyer spot '+str(this_cvspot.id)+' location value updated to be \''+json_data['value']+'\'.')
                 return Response({"message": "API request received - update cvspots "+str(this_cvspot.id)+" location value \""+str(json_data['value'])+"\"."})
