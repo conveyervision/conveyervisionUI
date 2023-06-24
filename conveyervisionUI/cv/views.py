@@ -35,12 +35,11 @@ def dashboard(request):
     config_msg = ''
     if not completed.completed == True:
         config_msg = '<a href="/config/" class="button special big">YOU NEED TO CONFIGURE YOUR SYSTEM! PLEASE CLICK HERE!</a>'
-    #item = CVSpots.objects.first()  # gets the item in the first spot
- 
-    #item = CVSpots.objects.all()  # gets all configured cv spots
-    item = CVSpots.objects.all().order_by('id')  # gets all configured cv spots
-    if item[1].added is not None:
-        added_delta = item[1].added - item[0].added
+    item = CVSpots.objects.exclude(added__isnull=True).order_by('-added')  # Grabbing most recently added CVSpots objects
+    if not item: # Handles if system is not yet configured
+        added_delta = 0
+    elif item[1].active == True:
+        added_delta = item[0].added - item[1].added
     else:
         added_delta = 0
     context = {
